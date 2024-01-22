@@ -4,7 +4,7 @@ Library    String
 
 *** Variables ***
 ${search_panel_locator} =    id:telegram-search-input
-${search_result_locator_template} = css:div[class='search-section'] div[aria-label={}]
+${search_result_locator_template} =     css:div[class='search-section'] div[aria-label={}]
 
 *** Keywords ***
 Search Telegram User By Name

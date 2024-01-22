@@ -1,6 +1,7 @@
 *** Settings ***
 Library    Dialogs
 Library    SeleniumLibrary
+Resource    page_objects/bot_panel.resource
 Resource    page_objects/left_panel.resource
 
 *** Keywords ***
@@ -13,12 +14,7 @@ Start the Bot
     ...  Error at a manual signing in.
     left_panel.Search Telegram User By Name    ${bot_name}
     left_panel.Open A User From Search Results    ${bot_name}
-    TRY
-        Wait Until Page Contains Element    //button[contains(text(),'START')]
-        Click Element    //button[contains(text(),'START')]
-    EXCEPT  Element '//button[contains(text(),'START')]' did not appear in 5 seconds.
-        Log    A bot chat has already been started.
-    END
+    bot_panel.Click 'Start' Button
 
 Teardown
     Close All Browsers
