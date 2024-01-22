@@ -1,6 +1,7 @@
 *** Settings ***
 Library    Dialogs
 Library    SeleniumLibrary
+Resource    page_objects/left_panel.resource
 
 *** Keywords ***
 Start the Bot
@@ -10,10 +11,8 @@ Start the Bot
     Maximize Browser Window
     Dialogs.Execute Manual Step    Log in to Web Telegram. Continue when Telegram chats become visible.  
     ...  Error at a manual signing in.
-    Page Should Contain Element    id:telegram-search-input  message=locator_error  limit=1
-    Input Text     id:telegram-search-input    ${bot_name}
-    Wait Until Page Contains Element    css:div[class='search-section'] div[aria-label=${bot_name}]
-    Click Element    css:div[class='search-section'] div[aria-label=${bot_name}]
+    left_panel.Search Telegram User By Name    ${bot_name}
+    left_panel.Open A User From Search Results    ${bot_name}
     TRY
         Wait Until Page Contains Element    //button[contains(text(),'START')]
         Click Element    //button[contains(text(),'START')]
