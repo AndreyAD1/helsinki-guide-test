@@ -1,6 +1,7 @@
 *** Settings ***
 Library    Dialogs
 Library    SeleniumLibrary
+Resource    page_objects/chat.resource
 Resource    page_objects/bot_panel.resource
 Resource    page_objects/left_panel.resource
 
@@ -16,10 +17,11 @@ Start the Bot
     bot_panel.Click 'Start' Button
 
 Teardown
+    Delete The Bot Chat
     Log Out
     Close All Browsers
 
 Log Out
-    left_panel.Open Menu
+    Wait Until Keyword Succeeds    5 s  1 s  left_panel.Open Menu
     left_panel.Open Settings
     left_panel.Log Out
