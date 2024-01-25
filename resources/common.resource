@@ -25,3 +25,4 @@ Log Out
     Wait Until Keyword Succeeds    5 s  1 s  left_panel.Open Menu
     left_panel.Open Settings
     left_panel.Log Out
+    Sleep    1s

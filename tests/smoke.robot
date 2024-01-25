@@ -14,4 +14,4 @@ ${BOT_NAME}
 *** Test Cases ***
 Start Message
     chat.Send A '/start' Command
-    chat.Verify A '/start' Response
+    Wait Until Keyword Succeeds    5 sec  1 sec  chat.Verify A '/start' Response
