@@ -18,6 +18,10 @@ Send A '/start' Command
     chat.Click The Command    start
 
 Verify A '/start' Response
+    Wait Until Keyword Succeeds    5 s  1 s  Verify Latest Message  ${expected start response}
+
+Verify Latest Message
+    [Arguments]    ${expected message}
     ${message text} =    chat.Get Last Message Text
     ${bot text}  ${time} =    Split String From Right    ${message text}  ${\n}  1
-    Should Be Equal    ${bot text}  ${expected start response}
+    Should Be Equal    ${bot text}  ${expected message}
