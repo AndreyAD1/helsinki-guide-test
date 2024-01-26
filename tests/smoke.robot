@@ -12,6 +12,7 @@ ${BROWSER} =    firefox
 ${BOT_NAME}
 
 *** Test Cases ***
-Start Message
-    chat.Send A '/start' Command
-    chat.Verify A '/start' Response
+Basic Commands
+    [Template]    Send and Verify A Basic Command
+    start    ${expected start response}
+    help    ${expected help response}

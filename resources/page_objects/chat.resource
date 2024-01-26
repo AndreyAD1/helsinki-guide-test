@@ -10,13 +10,13 @@ ${more actions button locator} =    css:.Button[title='More actions']
 ${delete chat button locator} =    xpath://*[.='Delete chat']
 ${last message locator} =    css:.Message.last-in-list .text-content
 *** Keywords ***
-Hover Over Command Button
-    Mouse Over    ${command_menu_locator}
+Open a Command Menu
+    Click Element    ${command_menu_locator}
 
-Click The Command
+Click the Command Button
     [Arguments]    ${command_name}
     ${command_locator} =    Format String    ${command_locator_template}  ${command_name}
-    Wait Until Page Contains Element    ${command_locator}
+    Wait Until Element Is Visible    ${command_locator}
     Click Element    ${command_locator}
 
 Delete The Bot Chat
