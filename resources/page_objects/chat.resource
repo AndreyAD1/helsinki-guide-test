@@ -24,6 +24,10 @@ Delete The Bot Chat
     Click Element    ${delete chat button locator}
     Click Button    Delete
 
+Get Last Message
+    ${last message} =    Get WebElement    ${last message locator}
+    RETURN    ${last message}
+
 Get Last Message Text
-    ${message text} =    Get Text    ${last_message locator}
+    ${message text} =    Get Text    ${last message locator}
     RETURN    ${message text}

@@ -1,5 +1,6 @@
 *** Settings ***
 Library    String
+Library    ../libraries/telegram_chats.py
 Resource    page_objects/chat.resource
 *** Variables ***
 ${expected start response} =    Hello! I'm a bot that provides information about Helsinki buildings.
@@ -49,5 +50,5 @@ Send And Verify The '/settings' Command
     Verify Returned Buttons
 
 Verify Returned Buttons
-    Log  Dummy Verification
-    
+    ${last_message} =    chat.Get Last Message
+    Verify Settings Response    ${last_message}
