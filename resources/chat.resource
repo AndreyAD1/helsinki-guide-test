@@ -43,3 +43,11 @@ Verify Latest Message
     ${message text} =    chat.Get Last Message Text
     ${bot text}  ${time} =    Split String From Right    ${message text}  ${\n}  1
     Should Be Equal    ${bot text}  ${expected message}
+
+Send And Verify The '/settings' Command
+    Send and Verify A Basic Command    settings  Choose a preferable language:
+    Verify Returned Buttons
+
+Verify Returned Buttons
+    Log  Dummy Verification
+    

@@ -16,3 +16,6 @@ Basic Commands
     [Template]    Send and Verify A Basic Command
     start    ${expected start response}
     help    ${expected help response}
+
+A Setting Command
+    Send And Verify The '/settings' Command
