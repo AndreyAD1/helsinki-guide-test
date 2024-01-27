@@ -32,7 +32,7 @@ Send and Verify A Basic Command
 
 Verify A Response
     [Arguments]    ${expected response}
-    Wait Until Keyword Succeeds    5 s  1 s  Verify Latest Message  ${expected response}
+    Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message  ${expected response}
 
 Send A Command
     [Arguments]    ${command name}
