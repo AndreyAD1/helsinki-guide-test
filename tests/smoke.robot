@@ -19,3 +19,6 @@ Basic Commands
 
 A Setting Command
     Send And Verify The '/settings' Command
+
+An Address Command
+    Send And Verify the '/addresses' Command

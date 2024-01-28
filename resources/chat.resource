@@ -23,6 +23,9 @@ ${expected help response} =    If you send me a message, I will provide all addr
 ...  /settings - I will return a menu so that you can manage your preferences.
 ...  /help - I will show this message.
 ...  separator=\n
+${expected addresses response template} =    Search address: {}
+...  Available building addresses and names:
+...  separator=\n
 
 *** Keywords ***
 Send and Verify A Basic Command
@@ -47,8 +50,17 @@ Verify Latest Message
 
 Send And Verify The '/settings' Command
     Send and Verify A Basic Command    settings  Choose a preferable language:
-    Verify Returned Buttons
+    Verify Setting Buttons
 
-Verify Returned Buttons
+Verify Setting Buttons
     ${last_message} =    chat.Get Last Message
     Verify Settings Response    ${last_message}
+
+Send And Verify The '/addresses' Command
+    ${expected text} =    String.Format String    ${expected addresses response template}  ${EMPTY}
+    Send and Verify A Basic Command    addresses  ${expected text}
+    Verify Addresses Buttons
+
+Verify Addresses Buttons
+    ${last_message} =    chat.Get Last Message
+    Verify Addresses Response    ${last_message}
