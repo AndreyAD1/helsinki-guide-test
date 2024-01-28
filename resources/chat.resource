@@ -1,6 +1,6 @@
 *** Settings ***
 Library    String
-Library    ../libraries/telegram_chats.py
+Library    ../libraries/telegram_chats.py    AS    ChatLib
 Resource    page_objects/chat.resource
 *** Variables ***
 ${expected start response} =    Hello! I'm a bot that provides information about Helsinki buildings.
@@ -54,7 +54,7 @@ Send And Verify The '/settings' Command
 
 Verify Setting Buttons
     ${last_message} =    chat.Get Last Message
-    Verify Settings Response    ${last_message}
+    ChatLib.Verify Settings Response    ${last_message}
 
 Send And Verify The '/addresses' Command
     ${expected text} =    String.Format String    ${expected addresses response template}  ${EMPTY}
@@ -63,7 +63,7 @@ Send And Verify The '/addresses' Command
 
 Verify Addresses Buttons
     ${last_message} =    chat.Get Last Message
-    Verify Addresses Response    ${last_message}
+    ChatLib.Verify Addresses Response    ${last_message}
 
 Send An Arbitrary Message
     [Arguments]    ${message}
