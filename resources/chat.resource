@@ -31,9 +31,9 @@ ${expected addresses response template} =    Search address: {}
 Send and Verify A Basic Command
     [Arguments]    ${command name}  ${expected response}
     Send A Command    ${command name}
-    Verify A Response    ${expected response}
+    Verify A Response Text    ${expected response}
 
-Verify A Response
+Verify A Response Text
     [Arguments]    ${expected response}
     Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message  ${expected response}
 
@@ -64,3 +64,8 @@ Send And Verify The '/addresses' Command
 Verify Addresses Buttons
     ${last_message} =    chat.Get Last Message
     Verify Addresses Response    ${last_message}
+
+Send An Arbitrary Message
+    [Arguments]    ${message}
+    chat.Input Message    ${message}
+    chat.Send Message

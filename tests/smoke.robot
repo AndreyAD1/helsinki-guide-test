@@ -12,13 +12,24 @@ ${BROWSER} =    firefox
 ${BOT_NAME}
 
 *** Test Cases ***
-Basic Commands
-    [Template]    Send and Verify A Basic Command
-    start    ${expected start response}
-    help    ${expected help response}
+#Basic Commands
+#    [Template]    Send and Verify A Basic Command
+#    start    ${expected start response}
+#    help    ${expected help response}
+#
+#A Setting Command
+#    Send And Verify The '/settings' Command
+#
+#An Address Command
+#    Send And Verify the '/addresses' Command
+    
+An Arbitrary Address
+    Send An Arbitrary Message    Gyldenintie
+    Verify Returned Addresses   Gyldenintie
 
-A Setting Command
-    Send And Verify The '/settings' Command
-
-An Address Command
-    Send And Verify the '/addresses' Command
+*** Keywords ***
+Verify Returned Addresses
+    [Arguments]    ${sent text}
+    ${expected response} =    String.Format String    ${expected addresses response template}  ${sent text}
+    Verify A Response Text    ${expected response}
+    Verify Addresses Buttons

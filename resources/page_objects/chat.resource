@@ -32,3 +32,10 @@ Get Last Message
 Get Last Message Text
     ${message text} =    Get Text    ${last message text locator}
     RETURN    ${message text}
+
+Input Message
+    [Arguments]    ${message}
+    Input Text    id:editable-message-text    ${message}
+
+Send Message
+    Click Element    css:.Button[title='Send Message']
