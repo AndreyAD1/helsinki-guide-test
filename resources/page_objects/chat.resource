@@ -10,6 +10,7 @@ ${more actions button locator} =    css:.Button[title='More actions']
 ${delete chat button locator} =    xpath://*[.='Delete chat']
 ${last message content locator} =    css:.Message.last-in-list .message-content-wrapper
 ${last message text locator} =    css:.Message.last-in-list .text-content
+${last message button locator} =    xpath://div[contains(concat(' ',normalize-space(@class),' '),' last-in-list ')]//button[.='{}']
 *** Keywords ***
 Open a Command Menu
     Click Element    ${command_menu_locator}
@@ -39,3 +40,8 @@ Input Message
 
 Send Message
     Click Element    css:.Button[title='Send Message']
+
+Click Building Button
+    [Arguments]    ${address}
+    ${button locator} =    String.Format String    ${last message button locator}  ${address}
+    Click Element    ${button locator}

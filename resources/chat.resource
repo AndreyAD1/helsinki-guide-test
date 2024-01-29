@@ -50,6 +50,11 @@ Send And Verify An Arbitrary Message
     Send An Arbitrary Message    ${message text}
     Verify Returned Addresses    ${message text}
 
+Get Building
+    [Arguments]    ${address}    ${expected response}
+    chat.Click Building Button    ${address}
+    Verify A Response Text    ${expected response}
+
 # -----------| Test Procedures |-----------
 
 Send A Command
