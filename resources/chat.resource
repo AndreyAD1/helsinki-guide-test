@@ -28,19 +28,38 @@ ${expected addresses response template} =    Search address: {}
 ...  separator=\n
 
 *** Keywords ***
+
+# -----------| High-level wrappers |-----------
+
 Send and Verify A Basic Command
     [Arguments]    ${command name}  ${expected response}
     Send A Command    ${command name}
     Verify A Response Text    ${expected response}
 
-Verify A Response Text
-    [Arguments]    ${expected response}
-    Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message  ${expected response}
+Send And Verify The '/settings' Command
+    Send and Verify A Basic Command    settings  Choose a preferable language:
+    Verify Setting Buttons
+
+Send And Verify The '/addresses' Command
+    ${expected text} =    String.Format String    ${expected addresses response template}  ${EMPTY}
+    Send and Verify A Basic Command    addresses  ${expected text}
+    Verify Address Buttons
+
+Send And Verify An Arbitrary Message
+    [Arguments]    ${message text}
+    Send An Arbitrary Message    ${message text}
+    Verify Returned Addresses    ${message text}
+
+# -----------| Test Procedures |-----------
 
 Send A Command
     [Arguments]    ${command name}
     chat.Open a Command Menu
     chat.Click the Command Button    ${command name}
+
+Verify A Response Text
+    [Arguments]    ${expected response}
+    Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message  ${expected response}
 
 Verify Latest Message
     [Arguments]    ${expected message}
@@ -48,20 +67,11 @@ Verify Latest Message
     ${bot text}  ${time} =    Split String From Right    ${message text}  ${\n}  1
     Should Be Equal    ${bot text}  ${expected message}
 
-Send And Verify The '/settings' Command
-    Send and Verify A Basic Command    settings  Choose a preferable language:
-    Verify Setting Buttons
-
 Verify Setting Buttons
     ${last_message} =    chat.Get Last Message
     ChatLib.Verify Settings Response    ${last_message}
 
-Send And Verify The '/addresses' Command
-    ${expected text} =    String.Format String    ${expected addresses response template}  ${EMPTY}
-    Send and Verify A Basic Command    addresses  ${expected text}
-    Verify Addresses Buttons
-
-Verify Addresses Buttons
+Verify Address Buttons
     ${last_message} =    chat.Get Last Message
     ChatLib.Verify Addresses Response    ${last_message}
 
@@ -69,3 +79,9 @@ Send An Arbitrary Message
     [Arguments]    ${message}
     chat.Input Message    ${message}
     chat.Send Message
+
+Verify Returned Addresses
+    [Arguments]    ${sent text}
+    ${expected response} =    String.Format String    ${expected addresses response template}  ${sent text}
+    Verify A Response Text    ${expected response}
+    Verify Address Buttons
