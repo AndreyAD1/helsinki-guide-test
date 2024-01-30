@@ -23,6 +23,6 @@ An Address Command
 
 Get Building Info
     Send And Verify The '/settings' Command
-#    Set Language    English
+    Set Language    English
     Send And Verify An Arbitrary Message    Gyldenintie
     Get Building    Gyldenintie 10 A,B - As Oy Kaislakallio  ${expected building info}

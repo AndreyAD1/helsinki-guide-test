@@ -20,6 +20,12 @@ Send And Verify The '/addresses' Command
     Send and Verify A Basic Command    addresses  ${expected text}
     Verify Address Buttons
 
+Set Language
+    [Arguments]    ${language}
+    chat.Click Button    ${language}
+    ${expected language response} =    Format String    ${language response template}  ${language}
+    Verify A Response Text    ${expected language response}
+
 Send And Verify An Arbitrary Message
     [Arguments]    ${message text}
     Send An Arbitrary Message    ${message text}
@@ -28,7 +34,7 @@ Send And Verify An Arbitrary Message
 
 Get Building
     [Arguments]    ${address}    ${expected response}
-    chat.Click Building Button    ${address}
+    chat.Click Button    ${address}
     Verify A Response Text    ${expected response}
 
 # -----------| Test Procedures |-----------

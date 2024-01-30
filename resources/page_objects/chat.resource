@@ -41,7 +41,7 @@ Input Message
 Send Message
     Click Element    css:.Button[title='Send Message']
 
-Click Building Button
-    [Arguments]    ${address}
-    ${button locator} =    String.Format String    ${last message button locator}  ${address}
+Click Button
+    [Arguments]    ${button text}
+    ${button locator} =    String.Format String    ${last message button locator}  ${button text}
     Click Element    ${button locator}
