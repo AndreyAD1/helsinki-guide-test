@@ -1,6 +1,7 @@
 *** Settings ***
 Library    Dialogs
 Library    SeleniumLibrary
+Library    String
 Resource    page_objects/chat.resource
 Resource    page_objects/bot_panel.resource
 Resource    page_objects/left_panel.resource
@@ -18,9 +19,15 @@ Start the Bot
     bot_panel.Click 'Start' Button
 
 Teardown
-    Delete The Bot Chat
-    Log Out
-    Close All Browsers
+    TRY
+        Delete The Bot Chat
+        Log Out
+        Close All Browsers
+    EXCEPT    AS    ${error}
+        ${log message} =    Format String    The teardown error: {}    ${error}
+        Log To Console    ${log message}
+        Log    ${log message}
+    END
 
 Log Out
     Wait Until Keyword Succeeds    5 s  1 s  left_panel.Open Menu
