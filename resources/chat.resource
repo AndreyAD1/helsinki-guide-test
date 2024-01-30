@@ -2,35 +2,10 @@
 Library    String
 Library    ../libraries/telegram_chats.py    AS    ChatLib
 Resource    page_objects/chat.resource
-*** Variables ***
-${expected start response} =    Hello! I'm a bot that provides information about Helsinki buildings.
-...
-...  If you send me a message, I will provide all addresses I know that are similar to your message.
-...  If you click the button "Share my location and get the nearest buildings", I will provide all known addresses that are close to your location.
-...
-...  Available commands:
-...  /start - I will send a greeting message.
-...  /addresses - I will return all addresses I know.
-...  /settings - I will return a menu so that you can manage your preferences.
-...  /help - I will show this message.
-...  separator=\n
-${expected help response} =    If you send me a message, I will provide all addresses I know that are similar to your message.
-...  If you click the button "Share my location and get the nearest buildings", I will provide all known addresses that are close to your location.
-...
-...  Available commands:
-...  /start - I will send a greeting message.
-...  /addresses - I will return all addresses I know.
-...  /settings - I will return a menu so that you can manage your preferences.
-...  /help - I will show this message.
-...  separator=\n
-${expected addresses response template} =    Search address: {}
-...  Available building addresses and names:
-...  separator=\n
+Resource    ../data/expectations.resource
 
 *** Keywords ***
-
 # -----------| High-level wrappers |-----------
-
 Send and Verify A Basic Command
     [Arguments]    ${command name}  ${expected response}
     Send A Command    ${command name}
@@ -48,7 +23,8 @@ Send And Verify The '/addresses' Command
 Send And Verify An Arbitrary Message
     [Arguments]    ${message text}
     Send An Arbitrary Message    ${message text}
-    Verify Returned Addresses    ${message text}
+    ${expected text} =    String.Format String    ${expected addresses response template}  ${message text}
+    Verify Returned Addresses    ${expected text}
 
 Get Building
     [Arguments]    ${address}    ${expected response}
@@ -56,7 +32,6 @@ Get Building
     Verify A Response Text    ${expected response}
 
 # -----------| Test Procedures |-----------
-
 Send A Command
     [Arguments]    ${command name}
     chat.Open a Command Menu
@@ -86,7 +61,6 @@ Send An Arbitrary Message
     chat.Send Message
 
 Verify Returned Addresses
-    [Arguments]    ${sent text}
-    ${expected response} =    String.Format String    ${expected addresses response template}  ${sent text}
-    Verify A Response Text    ${expected response}
+    [Arguments]    ${expected text}
+    Verify A Response Text    ${expected text}
     Verify Address Buttons
