@@ -37,6 +37,12 @@ Get Building
     chat.Click Last Message Button    ${address}
     Verify A Response Text    ${expected response}
 
+Get Next Buildings    
+    [Arguments]    ${search address}
+    chat.Click Last Message Button    Next 10 buildings
+    ${expected text} =    String.Format String    ${expected addresses response template}  ${search address}
+    Verify Returned Addresses    ${expected text}
+
 # -----------| Test Procedures |-----------
 Send A Command
     [Arguments]    ${command name}
