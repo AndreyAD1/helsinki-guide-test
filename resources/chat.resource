@@ -50,10 +50,13 @@ Send A Command
     chat.Click the Command Button    ${command name}
 
 Verify A Response Text
-    [Arguments]    ${expected response}
-    Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message  ${expected response}
+    [Arguments]    ${expected response}    ${expected id}=${None}
+    IF    ${expected_id} != ${None}
+        Wait Until Keyword Succeeds    10 s  1 s  Verify New Latest Message Exists  ${expected id}
+    END
+    Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message Text  ${expected response}
 
-Verify Latest Message
+Verify Latest Message Text
     [Arguments]    ${expected message}
     ${message text} =    chat.Get Last Message Text
     ${bot text}  ${time} =    Split String From Right    ${message text}  ${\n}  1

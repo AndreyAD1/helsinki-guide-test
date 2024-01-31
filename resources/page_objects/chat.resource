@@ -26,6 +26,11 @@ Delete The Bot Chat
     Click Element    ${delete chat button locator}
     Click Button    Delete
 
+Verify New Latest Message Exists
+    [Arguments]    ${expected message id}
+    ${new message locator} =    Format String    id:{}    ${expected message id}
+    Page Should Contain Element    ${new message locator}
+
 Get Last Message
     ${last message} =    Get WebElement    ${last message content locator}
     RETURN    ${last message}
