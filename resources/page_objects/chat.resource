@@ -8,6 +8,7 @@ ${command_menu_locator} =    css:.Button.bot-commands
 ${command_locator_template} =    xpath://div[contains(concat(' ',normalize-space(@class),' '),' BotCommand ')]//span[.='/{}']
 ${more actions button locator} =    css:.Button[title='More actions']
 ${delete chat button locator} =    xpath://*[.='Delete chat']
+${latest message locator} =    css:.Message.last-in-list
 ${last message content locator} =    css:.Message.last-in-list .message-content-wrapper
 ${last message text locator} =    css:.Message.last-in-list .text-content
 ${last message button locator} =    xpath://div[contains(concat(' ',normalize-space(@class),' '),' last-in-list ')]//button[.='{}']
@@ -25,6 +26,10 @@ Delete The Bot Chat
     Click Element    ${more actions button locator}
     Click Element    ${delete chat button locator}
     Click Button    Delete
+
+Get Latest Message ID
+    ${latest message} =    Get WebElement    ${latest message locator}
+    RETURN   ${latest message.get_attribute('id')}
 
 Verify New Latest Message Exists
     [Arguments]    ${expected message id}

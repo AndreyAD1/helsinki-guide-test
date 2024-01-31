@@ -39,9 +39,11 @@ Get Building
 
 Get Next Buildings    
     [Arguments]    ${search address}
+    ${latest message id} =    chat.Get Latest Message ID
+    ${expected id} =    Get Expected ID    ${latest message id}
     chat.Click Last Message Button    Next 10 buildings
     ${expected text} =    String.Format String    ${expected addresses response template}  ${search address}
-    Verify Returned Addresses    ${expected text}
+    Verify Returned Addresses    ${expected text}  expected id=${expected id}
 
 # -----------| Test Procedures |-----------
 Send A Command
@@ -51,7 +53,7 @@ Send A Command
 
 Verify A Response Text
     [Arguments]    ${expected response}    ${expected id}=${None}
-    IF    ${expected_id} != ${None}
+    IF    '${expected_id}' != '${None}'
         Wait Until Keyword Succeeds    10 s  1 s  Verify New Latest Message Exists  ${expected id}
     END
     Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message Text  ${expected response}
@@ -76,6 +78,13 @@ Send An Arbitrary Message
     chat.Send Message
 
 Verify Returned Addresses
-    [Arguments]    ${expected text}
-    Verify A Response Text    ${expected text}
+    [Arguments]    ${expected text}    ${expected id}=${None}
+    Verify A Response Text    ${expected text}  expected id=${expected_id}
     Verify Address Buttons
+    
+Get Expected ID
+    [Arguments]    ${latest message id}
+    ${only id} =    Fetch From Right    ${latest message id}  message
+    ${expected id number} =    Evaluate    int(${only id}) + 1
+    ${expected id} =    Format String    message{}  ${expected id number}
+    RETURN    ${expected id}
