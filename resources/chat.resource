@@ -44,6 +44,7 @@ Get Next Buildings
     chat.Click Last Message Button    Next 10 buildings
     ${expected text} =    String.Format String    ${expected addresses response template}  ${search address}
     Verify Returned Addresses    ${expected text}  ${expected button number}  ${expect next button}  expected id=${expected id}
+    Verify That Clicked Button Disappeared    ${latest message id}  10
 
 # -----------| Test Procedures |-----------
 Send A Command
@@ -89,3 +90,8 @@ Get Expected ID
     ${expected id number} =    Evaluate    int(${only id}) + 1
     ${expected id} =    Format String    message{}  ${expected id number}
     RETURN    ${expected id}
+
+Verify That Clicked Button Disappeared    
+    [Arguments]    ${message id}  ${expected button number}
+    ${last_message} =    chat.Get Message By ID    ${message id}
+    ChatLib.Check Address Buttons    ${last_message}  ${expected button number}  ${False}

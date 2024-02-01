@@ -10,6 +10,7 @@ ${more actions button locator} =    css:.Button[title='More actions']
 ${delete chat button locator} =    xpath://*[.='Delete chat']
 ${latest message locator} =    css:.Message.last-in-list
 ${last message content locator} =    css:.Message.last-in-list .message-content-wrapper
+${message by id locator template} =    css:#{} .message-content-wrapper
 ${last message text locator} =    css:.Message.last-in-list .text-content
 ${last message button locator} =    xpath://div[contains(concat(' ',normalize-space(@class),' '),' last-in-list ')]//button[.='{}']
 *** Keywords ***
@@ -39,6 +40,12 @@ Verify New Latest Message Exists
 Get Last Message
     ${last message} =    Get WebElement    ${last message content locator}
     RETURN    ${last message}
+
+Get Message By ID
+    [Arguments]    ${message id}
+    ${message by id locator} =    Format String  ${message by id locator template}  ${message id}
+    ${message} =    Get WebElement    ${message by id locator}
+    RETURN    ${message}
 
 Get Last Message Text
     ${message text} =    Get Text    ${last message text locator}

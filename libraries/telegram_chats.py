@@ -5,7 +5,6 @@ from selenium.webdriver.remote.webelement import WebElement, By
 ROBOT_LIBRARY_VERSION = '0.1'
 ROBOT_AUTO_KEYWORDS = False
 
-EXPECTED_BUTTON_NUMBER = 11
 EXPECTED_NEXT_BUTTON_TEXT = "Next 10 buildings"
 
 
@@ -26,16 +25,17 @@ def verify_settings_response(response_message: WebElement):
 def check_address_buttons(
         response_message: WebElement,
         expected_button_number: int,
-        next_button_is_expected: bool,
+        next_button_is_expected: bool = True,
 ):
     buttons = response_message.find_elements(
         by=By.CSS_SELECTOR,
         value=".InlineButtons .row .Button",
     )
-    assert len(buttons) == expected_button_number, f"Unexpected button number: {buttons}"
+    error_msg = f"Unexpected button number: {len(buttons)}. Expect: {expected_button_number}"
+    assert len(buttons) == expected_button_number, error_msg
     if not next_button_is_expected:
         return
     assert len(buttons) > 0, "Next button is expected, but no buttons are found."
     last_button = buttons[-1]
-    err_template = f"Unexpected last button text: {last_button.text}. Expect: {EXPECTED_NEXT_BUTTON_TEXT}"
-    assert last_button.text == EXPECTED_NEXT_BUTTON_TEXT, err_template
+    error_msg = f"Unexpected last button text: {last_button.text}. Expect: {EXPECTED_NEXT_BUTTON_TEXT}"
+    assert last_button.text == EXPECTED_NEXT_BUTTON_TEXT, error_msg
