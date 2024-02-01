@@ -53,7 +53,7 @@ Send A Command
 
 Verify A Response Text
     [Arguments]    ${expected response}    ${expected id}=${None}
-    IF    '${expected_id}' != '${None}'
+    IF    $expected_id != $None
         Wait Until Keyword Succeeds    10 s  1 s  Verify New Latest Message Exists  ${expected id}
     END
     Wait Until Keyword Succeeds    10 s  1 s  Verify Latest Message Text  ${expected response}
