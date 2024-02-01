@@ -2,12 +2,13 @@
 name = "helsinki-guide-test"
 version = "0.1.0"
 description = "UI tests for a Helsinki Guide bot."
-authors = ["Your Name <you@example.com>"]
+authors = ["Andrey Arakelyants"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
 python = "^3.12.1"
 robotframework = "^7.0"
+robotframework-seleniumlibrary = "^6.2.0"
 
 [tool.poetry.dev-dependencies]
 
