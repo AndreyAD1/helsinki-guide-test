@@ -6,4 +6,4 @@ Resource    ../resources/chat.resource
 *** Test Cases ***
 Get Next Buildings
     Send And Verify The '/addresses' Command
-    Get Next Buildings    ${EMPTY}
+    Get Next Buildings    ${EMPTY}  11  ${True}

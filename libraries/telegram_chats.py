@@ -23,12 +23,19 @@ def verify_settings_response(response_message: WebElement):
 
 
 @keyword
-def verify_addresses_response(response_message: WebElement):
+def check_address_buttons(
+        response_message: WebElement,
+        expected_button_number: int,
+        next_button_is_expected: bool,
+):
     buttons = response_message.find_elements(
         by=By.CSS_SELECTOR,
         value=".InlineButtons .row .Button",
     )
-    assert len(buttons) == EXPECTED_BUTTON_NUMBER, f"Unexpected button number: {buttons}"
+    assert len(buttons) == expected_button_number, f"Unexpected button number: {buttons}"
+    if not next_button_is_expected:
+        return
+    assert len(buttons) > 0, "Next button is expected, but no buttons are found."
     last_button = buttons[-1]
     err_template = f"Unexpected last button text: {last_button.text}. Expect: {EXPECTED_NEXT_BUTTON_TEXT}"
     assert last_button.text == EXPECTED_NEXT_BUTTON_TEXT, err_template

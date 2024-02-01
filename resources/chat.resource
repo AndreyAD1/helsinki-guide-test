@@ -18,7 +18,7 @@ Send And Verify The '/settings' Command
 Send And Verify The '/addresses' Command
     ${expected text} =    String.Format String    ${expected addresses response template}  ${EMPTY}
     Send and Verify A Basic Command    addresses  ${expected text}
-    Verify Address Buttons
+    Verify Address Buttons    11  ${True}
 
 Set Language
     [Arguments]    ${language}
@@ -27,10 +27,10 @@ Set Language
     Verify A Response Text    ${expected language response}
 
 Send And Verify An Arbitrary Message
-    [Arguments]    ${message text}
+    [Arguments]    ${message text}  ${expected button number}  ${expect next button}
     Send An Arbitrary Message    ${message text}
     ${expected text} =    String.Format String    ${expected addresses response template}  ${message text}
-    Verify Returned Addresses    ${expected text}
+    Verify Returned Addresses    ${expected text}  ${expected button number}  ${expect next button}
 
 Get Building
     [Arguments]    ${address}    ${expected response}
@@ -38,12 +38,12 @@ Get Building
     Verify A Response Text    ${expected response}
 
 Get Next Buildings    
-    [Arguments]    ${search address}
+    [Arguments]    ${search address}  ${expected button number}  ${expect next button}
     ${latest message id} =    chat.Get Latest Message ID
     ${expected id} =    Get Expected ID    ${latest message id}
     chat.Click Last Message Button    Next 10 buildings
     ${expected text} =    String.Format String    ${expected addresses response template}  ${search address}
-    Verify Returned Addresses    ${expected text}  expected id=${expected id}
+    Verify Returned Addresses    ${expected text}  ${expected button number}  ${expect next button}  expected id=${expected id}
 
 # -----------| Test Procedures |-----------
 Send A Command
@@ -69,8 +69,9 @@ Verify Setting Buttons
     ChatLib.Verify Settings Response    ${last_message}
 
 Verify Address Buttons
+    [Arguments]    ${expected button number}  ${expect next button}
     ${last_message} =    chat.Get Last Message
-    ChatLib.Verify Addresses Response    ${last_message}
+    ChatLib.Check Address Buttons    ${last_message}  ${expected button number}  ${expect next button}
 
 Send An Arbitrary Message
     [Arguments]    ${message}
@@ -78,9 +79,9 @@ Send An Arbitrary Message
     chat.Send Message
 
 Verify Returned Addresses
-    [Arguments]    ${expected text}    ${expected id}=${None}
+    [Arguments]    ${expected text}  ${expected button number}  ${expect next button}  ${expected id}=${None}
     Verify A Response Text    ${expected text}  expected id=${expected_id}
-    Verify Address Buttons
+    Verify Address Buttons    ${expected button number}  ${expect next button}
     
 Get Expected ID
     [Arguments]    ${latest message id}
