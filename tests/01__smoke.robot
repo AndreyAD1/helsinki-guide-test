@@ -5,11 +5,6 @@ Test Tags    smoke
 Resource    ../resources/chat.resource
 Resource    ../data/expectations.resource
 
-*** Variables ***
-${WEB_TELEGRAM_URL} =    https://web.telegram.org/a/
-${BROWSER} =    firefox
-${BOT_NAME}
-
 *** Test Cases ***
 Basic Commands
     [Template]    Send and Verify A Basic Command
