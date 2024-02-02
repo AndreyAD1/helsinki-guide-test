@@ -19,10 +19,10 @@ to install Selenium drivers for the browsers that you are going to test.
 6. Determine the name of the bot chat you are going to test. 
 Use this name as a `BOT_NAME` variable in a test run command:
    ```shell
-   robot --variable BOT_NAME:[The bot name] .
+   robot --variable BOT_NAME:[The bot name] --variable BROWSER:chrome .
    ```
 
-If everything works fine, you will see an open browser window with an invitation to log in to your account.
+If everything works fine, you will see an open Chrome window with an invitation to log in to your account.
 After signing in, tests will run.
 
 ## License
