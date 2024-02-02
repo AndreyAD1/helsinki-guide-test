@@ -46,6 +46,13 @@ Get Next Buildings
     Verify Returned Addresses    ${expected text}  ${expected button number}  ${expect next button}  expected id=${expected id}
     Verify That Clicked Button Disappeared    ${latest message id}  10
 
+Get All Next Buildings
+    [Arguments]    ${next click number}  ${search address}  ${buildings in latest message}
+    FOR    ${index}    IN RANGE    ${next click number}
+        Get Next Buildings    ${search address}  11  ${True}
+    END
+    Get Next Buildings    ${search address}  5  ${False}
+
 # -----------| Test Procedures |-----------
 Send A Command
     [Arguments]    ${command name}

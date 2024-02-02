@@ -18,7 +18,7 @@ Search Telegram User By Name
 Open A User From Search Results
     [Arguments]    ${username}
     ${locator} =     String.Format String    ${search_result_locator_template}  ${username}
-    Wait Until Page Contains Element    ${locator}  timeout=10
+    Wait Until Page Contains Element    ${locator}  timeout=15
     Click Element    ${locator}
 
 Open Menu

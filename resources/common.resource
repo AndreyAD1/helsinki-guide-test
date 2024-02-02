@@ -10,7 +10,7 @@ Resource    page_objects/left_panel.resource
 Start the Bot
     [Arguments]    ${url}    ${browser}    ${bot_name}
     Should Not Be Empty    ${bot_name}  Set a variable BOT_NAME
-    Set Selenium Speed    0.3 second
+    Set Selenium Speed    0.1 second
     Open Browser    ${url}    ${browser}
     Dialogs.Execute Manual Step    Log in to Web Telegram. Continue when Telegram chats become visible.
     ...  Error at a manual signing in.
