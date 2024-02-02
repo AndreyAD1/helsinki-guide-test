@@ -14,6 +14,6 @@ Get Next Buildings After '/addresses'
     Send And Verify The '/addresses' Command
     Get Next Buildings    ${EMPTY}  11  ${True}
 
-Get All Buildings
+Get All Buildings By Address '${search address}'
     Send And Verify An Arbitrary Message    ${search address}  11  ${True}
     Get All Next Buildings    ${next click number}  ${search address}  ${buildings in latest message}

@@ -1,6 +1,7 @@
 *** Settings ***
 Name    Smoke tests
 Documentation    This test suite checks the basic functionality.
+Test Tags    smoke
 Resource    ../resources/chat.resource
 Resource    ../data/expectations.resource
 
