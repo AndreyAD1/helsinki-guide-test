@@ -13,3 +13,9 @@ Send Message And Get No Addresses
     absent address
     сообщение из нелатинских букв
     1234 56779 123213
+
+Send Too Long Messages
+    [Tags]    long
+    Send And Verify Too Long Message
+    ${valid long message} =    Evaluate  (int($message_limit) - 1) * 'k'
+    Send Message And Receive No Addresses    ${valid long message}

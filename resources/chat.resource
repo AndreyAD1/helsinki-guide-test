@@ -60,6 +60,11 @@ Get All Next Buildings
     END
     Get Next Buildings    ${search address}  5  ${False}
 
+Send And Verify Too Long Message
+    ${long message} =    Evaluate    int($message_limit) * 'k'
+    Send An Arbitrary Message    ${long message}
+    Verify Returned Addresses    ${long message error}  0  ${False}
+
 # -----------| Test Procedures |-----------
 Send A Command
     [Arguments]    ${command name}

@@ -37,5 +37,6 @@ ${expected addresses response template} =    Search address: {}
 ...  Available building addresses and names:
 ...  separator=\n
 ${no buildings message} =    ${\n}No buildings are found.
-
 ${language response template} =    I will return the building information in {}.
+${message limit} =    50
+${long message error} =    Please enter an address with less than ${message limit} characters.
