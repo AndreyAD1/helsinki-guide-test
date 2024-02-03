@@ -33,9 +33,17 @@ def check_address_buttons(
     )
     error_msg = f"Unexpected button number: {len(buttons)}. Expect: {expected_button_number}"
     assert len(buttons) == expected_button_number, error_msg
-    if not next_button_is_expected:
+    if expected_button_number == 0:
         return
-    assert len(buttons) > 0, "Next button is expected, but no buttons are found."
     last_button = buttons[-1]
-    error_msg = f"Unexpected last button text: {last_button.text}. Expect: {EXPECTED_NEXT_BUTTON_TEXT}"
-    assert last_button.text == EXPECTED_NEXT_BUTTON_TEXT, error_msg
+    if next_button_is_expected:
+        error_msg = "Unexpected last button text: {}. Expect: {}".format(
+            last_button.text,
+            EXPECTED_NEXT_BUTTON_TEXT,
+        )
+        assert last_button.text == EXPECTED_NEXT_BUTTON_TEXT, error_msg
+    else:
+        assert last_button.text != EXPECTED_NEXT_BUTTON_TEXT, "Unexpected next button"
+
+
+

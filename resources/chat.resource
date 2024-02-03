@@ -32,6 +32,13 @@ Send And Verify An Arbitrary Message
     ${expected text} =    String.Format String    ${expected addresses response template}  ${message text}
     Verify Returned Addresses    ${expected text}  ${expected button number}  ${expect next button}
 
+Send Message And Receive No Addresses
+    [Arguments]    ${message text}
+    Send An Arbitrary Message    ${message text}
+    ${expected text} =    String.Format String    ${expected addresses response template}  ${message text}
+    ${expected text} =    Evaluate    $expected_text + $no_buildings_message
+    Verify Returned Addresses    ${expected text}  0  ${False}
+
 Get Building
     [Arguments]    ${address}    ${expected response}
     chat.Click Last Message Button    ${address}

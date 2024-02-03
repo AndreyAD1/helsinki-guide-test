@@ -36,5 +36,6 @@ ${expected help response} =    If you send me a message, I will provide all addr
 ${expected addresses response template} =    Search address: {}
 ...  Available building addresses and names:
 ...  separator=\n
+${no buildings message} =    ${\n}No buildings are found.
 
 ${language response template} =    I will return the building information in {}.
