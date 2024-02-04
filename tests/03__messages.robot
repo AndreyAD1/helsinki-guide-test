@@ -17,5 +17,7 @@ Send Message And Get No Addresses
 Send Too Long Messages
     [Tags]    long
     Send And Verify Too Long Message
-    ${valid long message} =    Evaluate  (int($message_limit) - 1) * 'k'
+
+Send Maximum Length Message
+    ${valid long message} =    Get Message Of Maximum Length
     Send Message And Receive No Addresses    ${valid long message}

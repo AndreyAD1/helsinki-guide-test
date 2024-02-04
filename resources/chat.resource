@@ -66,6 +66,10 @@ Send And Verify Too Long Message
     Verify Returned Addresses    ${long message error}  0  ${False}
 
 # -----------| Test Procedures |-----------
+Get Message Of Maximum Length
+    ${valid long message} =    Evaluate  (int($message_limit) - 1) * 'k'
+    RETURN    ${valid long message}
+
 Get No Buildings Message Text
     [Arguments]    ${sent message text}
     ${expected text} =    String.Format String    ${expected addresses response template}  ${sent message text}
