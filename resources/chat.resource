@@ -33,10 +33,10 @@ Send And Verify An Arbitrary Message
     Verify Returned Addresses    ${expected text}  ${expected button number}  ${expect next button}
 
 Send Message And Receive No Addresses
-    [Arguments]    ${message text}
-    Send An Arbitrary Message    ${message text}
-    ${expected text} =    String.Format String    ${expected addresses response template}  ${message text}
-    ${expected text} =    Evaluate    $expected_text + $no_buildings_message
+    [Arguments]    ${sending text}
+    Send An Arbitrary Message    ${sending text}
+    ${expected text} =    Get No Buildings Message Text  ${sending text}
+
     Verify Returned Addresses    ${expected text}  0  ${False}
 
 Get Building
@@ -58,14 +58,24 @@ Get All Next Buildings
     FOR    ${index}    IN RANGE    ${next click number}
         Get Next Buildings    ${search address}  11  ${True}
     END
-    Get Next Buildings    ${search address}  5  ${False}
+    Get Next Buildings    ${search address}  ${buildings in latest message}  ${False}
 
 Send And Verify Too Long Message
-    ${long message} =    Evaluate    int($message_limit) * 'k'
+    ${long message} =    Get Too Long Message
     Send An Arbitrary Message    ${long message}
     Verify Returned Addresses    ${long message error}  0  ${False}
 
 # -----------| Test Procedures |-----------
+Get No Buildings Message Text
+    [Arguments]    ${sent message text}
+    ${expected text} =    String.Format String    ${expected addresses response template}  ${sent message text}
+    ${expected text} =    Evaluate    $expected_text + $no_buildings_message
+    RETURN    ${expected text}
+
+Get Too Long Message
+    ${message text} =    Evaluate    int($message_limit) * 'k'
+    RETURN    ${message text}
+
 Send A Command
     [Arguments]    ${command name}
     chat.Open a Command Menu
